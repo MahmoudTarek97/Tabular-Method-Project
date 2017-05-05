@@ -1,5 +1,54 @@
-//degree is the number of 1s in the base value of an implicant
+--------------------------------------------Overview----------------------------------
+// javascript is a functional programming language so our program must be broken into some of functions
+// our program consists of 2 parts
+//	part I : Generate Prime Implicants
+//	part II : Petrick method
 
+-------------------------------------------Part I-------------------------------------
+// we will need 2 objects (= 2 Constructor Functions) : Implicant , Group
+
+1st constructor function Implicant(base_value,haming_distances,checked,dont_care)
+	// int var base_value
+	// int[] var haming_distances --> initially empty
+	// boolean var checked --> initially false
+	// boolean var dont_care
+	// int var degree = function(){ // return number of 1s }
+
+2nd constructor function Group(degree,Members)
+	// int var degree
+	// Implicant[] var Members
+
+function readInputs()
+	// store inputs in text field in a string var
+
+function generateImplicants(string var)
+	// each number in string var is a minterm (Implicant)
+	// this function handles these minterms and return Array of objects (Implicants)
+
+function generateGroups(Array of Implicants)
+	// this function devides Implicants into groups depending on implicant degree
+	// return array of objects (Groups)
+
+function groupingProcess(array of Groups)
+	// execute process to generate new array of implicants
+	// add unchecked implicants to array of prime implicants
+	// while (new array of implicants is not empty)
+	//	grouping process(generateGroups(array of implicants))
+
+// we finished part I of our program
+// now we have an array of prime implicants on which we will work in part II
+
+------------------------------------------part II--------------------------------------
+// stay tuned :P
+
+
+
+
+
+
+
+-----------------------------------------old plan--------------------------------------
+//degree is the number of 1s in the base value of an implicant
 
 class Implicant
 	member integer base value
