@@ -1,0 +1,31 @@
+//degree is the number of 1s in the base value of an implicant
+
+
+class Implicant
+	member integer base value
+	member integer collection of ba2eet el 7agat
+	member boolean checked initially false
+	member boolean don't care
+	member integer degree 
+	
+
+	method that counts bits of base value to set degree
+	
+
+class Group
+	member integer degree
+	member integer 
+	member collection of implicants
+
+	method constructor Group(implicants)
+			
+
+class GroupList
+	member integer order
+
+-Function that takes minterms and don't cares, converts them some form
+-Function that groups minterms and implicants, checking redundant implicants
+-organise remaiining (unchecked) prime implicants
+-row dominance and column dominance
+-petrick method
+-output

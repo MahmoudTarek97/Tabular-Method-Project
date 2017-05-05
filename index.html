@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Tabular Method Project</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Tabular Method Project <small>just for test</small></h1>
+        <div class="jumbotron">
+            <form id="Form">
+
+                <div class="form-group">
+
+                    <div class="row">
+                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                            <label for="Input">Σ<small>m</small></label>    
+                        </div>
+                        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                            <input type="text" class="form-control" id="Minterms" placeholder="Enter numbers of minterms like: 2,5,..">
+                        </div>
+                        
+                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                            <label for="Input">Σ<small>d</small></label>    
+                        </div>
+                        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                            <input type="text" class="form-control" id="DontCares" placeholder="Enter numbers of don't care minterms">
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
+                        
+                        <input id="clickSimplify" type="button" class="btn btn-primary btn-lg" value="Simplify" onClick="ReadInput();"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="footer">
+            <p>&copy <a>CSED20</a> | <a>by Mahmoud Tarek & Khaled Barie</a></p>
+        </div>
+        <script src="main.js"></script>
+    </div>
+</body>
+
+</html>
