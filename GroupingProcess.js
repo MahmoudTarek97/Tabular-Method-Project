@@ -24,7 +24,6 @@ function groupingProcess() {
                 PrimeImplicants.push(groupList[i].members[j]);
             }
         }
-        newGroupList.push(grouping(groupList[i].members, groupList[i + 1].members, i))
     }
     return newGroupList;
 }
