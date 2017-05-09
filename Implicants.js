@@ -25,9 +25,10 @@ function generateImplicants() {
 		implicants.push(new implicant(minTerms[i], [], false, false));
 	}
 
-	for (var j=0; j<minTerms.length; j++) {
+	for (var j=0; j<dontCares.length; j++) {
 		implicants.push(new implicant(dontCares[j], [], false, true));
 	}
+	console.log(implicants);
 	return implicants;
 }
 
