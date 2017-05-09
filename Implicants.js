@@ -1,4 +1,4 @@
-
+var groupList = [];
 
 //constructor function for implicants
 //baseValue: number of the minterm
@@ -11,6 +11,40 @@ function implicant(baseValue, bitsCovered, isChecked, isDontCare) {
 	this.isChecked = isChecked;
 	this.isDontCare = isDontCare;
 	this.degree = countBits(baseValue);
+}
+
+function group(degree, members) {
+	this.degree = degree;
+	this.members = members;
+}
+
+//generates initial implicants from minterms and dont cares
+function generateImplicants() {
+	var implicants = [];
+	for (var i in minTerms) {
+		implicants.push(new implicant(i, [], false, false));
+	}
+
+	for (var j in dontCares) {
+		implicants.push(new implicant(j, [], false, true));
+	}
+	return implicants;
+}
+
+function initializeGroups() {
+	//var groups = [];
+	implicants = generateImplicants();
+	
+	for (var implicant in implicants) {
+		console.log(implicant);
+		groupList[implicant.degree].members.push(implicant);
+	}
+}
+
+function initializeGroupList() {
+	for (var i=0; i<=numberOfInputs; i++) {
+		groupList.push(new group(i,[]));
+	}
 }
 
 

@@ -45,7 +45,6 @@ function printOutput() {
 	}
 
     outputDiv.appendChild(jumbotronDiv);
-    test();
 }
 
 //prints an error message
