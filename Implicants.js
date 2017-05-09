@@ -36,8 +36,7 @@ function initializeGroups() {
     implicants = generateImplicants();
 
     for (var i = 0; i < implicants.length; i++) {
-        implicant = implicants[i];
-        groupList[implicant.degree].members.push(implicant);
+        groupList[implicants[i].degree].members.push(implicants[i]);
     }
 }
 

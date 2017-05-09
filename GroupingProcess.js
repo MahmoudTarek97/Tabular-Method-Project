@@ -14,12 +14,13 @@ var PrimeImplicants = [];
 // we will need to put all groupLists in Array because we will need to call this function many times 
 // untill the new pushed groupList to the Array be empty
 function groupingProcess() {
+    var newGroupList = [];
     for (var i = 0; i < groupList.length - 1; i++) {
         newGroupList.push(grouping(groupList[i].members, groupList[i + 1].members, i))
     }
     console.log(newGroupList);
     for (var i = 0; i < groupList.length; i++) {
-        for (var j = 0; j < groupList[i].members.length, j++) {
+        for (var j = 0; j < groupList[i].members.length; j++) {
             if (groupList[i].members[j].isChecked == false) {
                 PrimeImplicants.push(groupList[i].members[j]);
             }
@@ -39,7 +40,7 @@ function grouping(firstGroup, secondGroup, resultDegree) {
                 secondGroup[j].isChecked = true;
                 var resultBitsCoverd = firstGroup[i].bitsCovered;
                 resultBitsCoverd.push(hamingDistance);
-                resultImplicants.push(new implicant(firstGroup[i].baseValue, resultBitsCoverd, false, false)); /* buggy :( */
+                resultImplicants.push(new implicant(firstGroup[i].baseValue, resultBitsCoverd, false, false));
             }
         }
     }
