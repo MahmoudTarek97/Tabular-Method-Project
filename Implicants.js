@@ -6,57 +6,56 @@ var groupList = [];
 //isChecked: boolean value used to determine if an implicant is already covered, initialized with false
 //degree: number of bits in the base value (group number)
 function implicant(baseValue, bitsCovered, isChecked, isDontCare) {
-	this.baseValue = baseValue;
-	this.bitsCovered = bitsCovered;
-	this.isChecked = isChecked;
-	this.isDontCare = isDontCare;
-	this.degree = countBits(baseValue);
+    this.baseValue = baseValue;
+    this.bitsCovered = bitsCovered;
+    this.isChecked = isChecked;
+    this.isDontCare = isDontCare;
+    this.degree = countBits(baseValue);
 }
 
 function group(degree, members) {
-	this.degree = degree;
-	this.members = members;
+    this.degree = degree;
+    this.members = members;
 }
 
 //generates initial implicants from minterms and dont cares
 function generateImplicants() {
-	var implicants = [];
-	for (var i =0; i<minTerms.length; i++) {
-		implicants.push(new implicant(minTerms[i], [], false, false));
-	}
+    var implicants = [];
+    for (var i = 0; i < minTerms.length; i++) {
+        implicants.push(new implicant(minTerms[i], [], false, false));
+    }
 
-	for (var j=0; j<dontCares.length; j++) {
-		implicants.push(new implicant(dontCares[j], [], false, true));
-	}
-	console.log(implicants);
-	return implicants;
+    for (var j = 0; j < dontCares.length; j++) {
+        implicants.push(new implicant(dontCares[j], [], false, true));
+    }
+    return implicants;
 }
 
 function initializeGroups() {
-	//var groups = [];
-	implicants = generateImplicants();
+    //var groups = [];
+    implicants = generateImplicants();
 
-	for (var i =0; i<implicants.length; i++) {
-		implicant = implicants[i];
-		groupList[implicant.degree].members.push(implicant);
-	}
+    for (var i = 0; i < implicants.length; i++) {
+        implicant = implicants[i];
+        groupList[implicant.degree].members.push(implicant);
+    }
 }
 
 function initializeGroupList() {
-	for (var i=0; i<=numberOfInputs; i++) {
-		groupList.push(new group(i,[]));
-	}
+    for (var i = 0; i <= numberOfInputs; i++) {
+        groupList.push(new group(i, []));
+    }
 }
 
 
 //returns number of bits the binary representation of a number
 function countBits(x) {
-	var c = 0;
-	while (x>0) {
-    	if (x%2 == 1) {
-			c++;
+    var c = 0;
+    while (x > 0) {
+        if (x % 2 == 1) {
+            c++;
         }
-		x = Math.floor(x/2);
-	}
-	return c;
+        x = Math.floor(x / 2);
+    }
+    return c;
 }

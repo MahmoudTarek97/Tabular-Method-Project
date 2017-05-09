@@ -18,26 +18,26 @@
 
                     <div class="row">
                         <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-                            <label for="Input">Σ<small>m</small></label>    
+                            <label for="Input">Σ<small>m</small></label>
                         </div>
                         <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
                             <input type="text" class="form-control" id="Minterms" placeholder="Enter numbers of minterms like: 2,5,..">
                         </div>
-                        
+
                         <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-                            <label for="Input">Σ<small>d</small></label>    
+                            <label for="Input">Σ<small>d</small></label>
                         </div>
                         <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
                             <input type="text" class="form-control" id="DontCares" placeholder="Enter numbers of don't care minterms">
                         </div>
                     </div>
-                    
+
                 </div>
 
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
-                        
-                        <input id="clickSimplify" type="button" class="btn btn-primary btn-lg" value="Simplify" onClick="readInput();initializeGroupList();initializeGroups();"/>
+
+                        <input id="clickSimplify" type="button" class="btn btn-primary btn-lg" value="Simplify" onClick="readInput();initializeGroupList();initializeGroups();groupingProcess();" />
                     </div>
                 </div>
             </form>
@@ -45,15 +45,16 @@
         </div>
 
         <div id=output>
-    
+
         </div>
-        
+
         <div class="footer">
             <p>&copy <a>CSED20</a> | <a>by Mahmoud Tarek & Khaled Barie</a></p>
         </div>
 
         <script src="InputOutput.js"></script>
         <script src="Implicants.js"></script>
+        <script src="GroupingProcess.js"></script>
 
 
     </div>

@@ -39,7 +39,7 @@ function groupingProcess(array of Groups)
 	// execute process to generate new array of implicants
 	// add unchecked implicants to array of prime implicants
 	// while (new array of implicants is not empty)
-	//	grouping process(generateGroups(array of implicants))
+	// grouping process(generateGroups(array of implicants))
 
 // we finished part I of our program
 // now we have an array of prime implicants on which we will work in part II
