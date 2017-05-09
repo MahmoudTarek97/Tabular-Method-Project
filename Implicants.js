@@ -21,12 +21,12 @@ function group(degree, members) {
 //generates initial implicants from minterms and dont cares
 function generateImplicants() {
 	var implicants = [];
-	for (var i in minTerms) {
-		implicants.push(new implicant(i, [], false, false));
+	for (var i =0; i<minTerms.length; i++) {
+		implicants.push(new implicant(minTerms[i], [], false, false));
 	}
 
-	for (var j in dontCares) {
-		implicants.push(new implicant(j, [], false, true));
+	for (var j=0; j<minTerms.length; j++) {
+		implicants.push(new implicant(dontCares[j], [], false, true));
 	}
 	return implicants;
 }
@@ -34,9 +34,9 @@ function generateImplicants() {
 function initializeGroups() {
 	//var groups = [];
 	implicants = generateImplicants();
-	
-	for (var implicant in implicants) {
-		console.log(implicant);
+
+	for (var i =0; i<implicants.length; i++) {
+		implicant = implicants[i];
 		groupList[implicant.degree].members.push(implicant);
 	}
 }
