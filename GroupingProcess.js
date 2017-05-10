@@ -18,7 +18,6 @@ function groupingProcess() {
     for (var i = 0; i < groupList.length - 1; i++) {
         newGroupList.push(grouping(groupList[i].members, groupList[i + 1].members, i))
     }
-    //console.log(newGroupList);
     for (var i = 0; i < groupList.length; i++) {
         for (var j = 0; j < groupList[i].members.length; j++) {
             if (!groupList[i].members[j].isChecked) {
@@ -26,6 +25,7 @@ function groupingProcess() {
             }
         }
     }
+    console.log(newGroupList);
     return newGroupList;
 }
 
@@ -34,7 +34,7 @@ function grouping(firstGroup, secondGroup, resultDegree) {
     var resultImplicants = [];
     for (var i = 0; i < firstGroup.length; i++) {
         for (var j = 0; j < secondGroup.length; j++) {
-            var hamingDistance = Math.abs(firstGroup[i].baseValue - secondGroup[j].baseValue);
+            var hamingDistance = secondGroup[j].baseValue - firstGroup[i].baseValue;
             if (groupingCondition(firstGroup[i], secondGroup[j], hamingDistance)) {
                 firstGroup[i].isChecked = true;
                 secondGroup[j].isChecked = true;
