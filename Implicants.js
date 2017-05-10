@@ -1,4 +1,4 @@
-var groupList = [];
+var groupLists = [[]];
 
 //constructor function for implicants
 //baseValue: number of the minterm
@@ -36,13 +36,13 @@ function initializeGroups() {
     implicants = generateImplicants();
 
     for (var i = 0; i < implicants.length; i++) {
-        groupList[implicants[i].degree].members.push(implicants[i]);
+        groupLists[0][implicants[i].degree].members.push(implicants[i]);
     }
 }
 
 function initializeGroupList() {
     for (var i = 0; i <= numberOfInputs; i++) {
-        groupList.push(new group(i, []));
+        groupLists[0].push(new group(i, []));
     }
 }
 

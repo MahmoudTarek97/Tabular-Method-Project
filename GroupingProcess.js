@@ -1,32 +1,30 @@
 /* now we have Array groupList = [ object group of deg. = 0 , object group of deg. = 1 , .. ]
- * groupList[0] --> object group = {degree: 0, members: Array of implicants}
- * groupList[0].members --> [ object implicant , object implicant , .. ]
- * groupList[0].members[0] --> object implicant = {baseValue: 1, bitsCovered: empty Array, isChecked: false, isDontCare: false, degree: 0}
+ * groupLists[0][0] --> object group = {degree: 0, members: Array of implicants}
+ * groupLists[0][0].members --> [ object implicant , object implicant , .. ]
+ * groupLists[0][0].members[0] --> object implicant = {baseValue: 1, bitsCovered: empty Array, isChecked: false, isDontCare: false, degree: 0}
  * in the end of this file we must have an Array of PrimeImplicants like this :
  * Array PrimeImplicants = [ object implicant , object implicant , .. ]
  * PrimeImplicants[0] = {baseValue: 2, bitsCovered: [1,2,4], isChecked: false, isDontCare: false, degree: 0}
  */
 
 // after each groupingProcess(); we must add the unchecked implicants to this Array
-var PrimeImplicants = [];
+/*var PrimeImplicants = [];*/
 
 // this function generate new groupList
 // we will need to put all groupLists in Array because we will need to call this function many times 
 // untill the new pushed groupList to the Array be empty
-function groupingProcess() {
-    var newGroupList = [];
-    for (var i = 0; i < groupList.length - 1; i++) {
-        newGroupList.push(grouping(groupList[i].members, groupList[i + 1].members, i))
+function groupingProcess(currentGroupList, generatedGroupList) {
+    for (var i = 0; i < currentGroupList.length - 1; i++) {
+        generatedGroupList.push(grouping(currentGroupList[i].members, currentGroupList[i + 1].members, i))
     }
-    for (var i = 0; i < groupList.length; i++) {
-        for (var j = 0; j < groupList[i].members.length; j++) {
-            if (!groupList[i].members[j].isChecked) {
-                PrimeImplicants.push(groupList[i].members[j]);
+    for (var i = 0; i < currentGroupList.length; i++) {
+        for (var j = 0; j < currentGroupList[i].members.length; j++) {
+            if (!currentGroupList[i].members[j].isChecked) {
+                PrimeImplicants.push(currentGroupList[i].members[j]);
             }
         }
     }
-    console.log(newGroupList);
-    return newGroupList;
+    return generatedGroupList;
 }
 
 // this function return new group to br added in the new groupList
@@ -55,6 +53,14 @@ function groupingCondition(firstImplicant, secondImplicant, hamingDistance) {
         return true;
     else
         return false;
+}
+
+function isEmptyGroupList(groupList) {
+    for (var i = 0; i < groupList.length; i++) {
+        if (groupList[i].members.length != 0)
+            return false;
+    }
+    return true;
 }
 
 
