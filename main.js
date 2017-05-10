@@ -4,13 +4,20 @@
 var minTerms;
 var dontCares;
 var numberOfInputs;
-var groupLists = [[]];
-var PrimeImplicants = [];
+var groupLists;
+var PrimeImplicants;
 
 function main() {
 
+    //initialize our Arrays
+    minTerms = [];
+    dontCares = [];
+    groupLists = [[]];
+    PrimeImplicants = [];
+
     //Part 0
     readInput(); //put them in Array minTerms & dontCares
+
 
     //Part 1
     initializeGroupList();
@@ -25,16 +32,19 @@ function main() {
     while (!isEmptyGroupList(generatedGroupList));
     groupLists.pop();
 
-    //test
-    var test = "PrimeImplicants : ";
+
+    //test output
+    var PI = "PrimeImplicants : ";
     for (var i = 0; i < PrimeImplicants.length; i++) {
         var bitsCovered = PrimeImplicants[i].bitsCovered;
         var baseValue = PrimeImplicants[i].baseValue;
         if (i != 0)
-            test = test.concat(" , ");
-        test = test.concat(baseValue + "(" + bitsCovered + ")");
+            PI = PI.concat(" , ");
+        PI = PI.concat(baseValue + "(" + bitsCovered + ")");
     }
-    console.log(test);
-    alert(test);
+    console.log(PI);
+
+    //Part 2
+    //stay tuned :)
 
 }
