@@ -18,10 +18,10 @@ function groupingProcess() {
     for (var i = 0; i < groupList.length - 1; i++) {
         newGroupList.push(grouping(groupList[i].members, groupList[i + 1].members, i))
     }
-    console.log(newGroupList);
+    //console.log(newGroupList);
     for (var i = 0; i < groupList.length; i++) {
         for (var j = 0; j < groupList[i].members.length; j++) {
-            if (groupList[i].members[j].isChecked == false) {
+            if (!groupList[i].members[j].isChecked) {
                 PrimeImplicants.push(groupList[i].members[j]);
             }
         }
@@ -38,9 +38,11 @@ function grouping(firstGroup, secondGroup, resultDegree) {
             if (groupingCondition(firstGroup[i], secondGroup[j], hamingDistance)) {
                 firstGroup[i].isChecked = true;
                 secondGroup[j].isChecked = true;
-                var resultBitsCoverd = firstGroup[i].bitsCovered;
+                var resultBitsCoverd = firstGroup[i].bitsCovered.slice();
                 resultBitsCoverd.push(hamingDistance);
-                resultImplicants.push(new implicant(firstGroup[i].baseValue, resultBitsCoverd, false, false));
+                var resultImplicant = new implicant(firstGroup[i].baseValue, resultBitsCoverd, false, false);
+                if (!repeatedImpliacnt(resultImplicant, resultImplicants))
+                    resultImplicants.push(new implicant(firstGroup[i].baseValue, resultBitsCoverd, false, false));
             }
         }
     }
@@ -74,4 +76,12 @@ function arraysEqual(a, b) {
 // thanks to StackOverFlow :'D
 function power_of_2(n) {
     return n && (n & (n - 1)) === 0;
+}
+
+function repeatedImpliacnt(imp, implicants) {
+    for (var i = 0; i < implicants.length; i++) {
+        if (imp.baseValue === implicants[i].baseValue && arraysEqual(imp.bitsCovered, implicants[i].bitsCovered))
+            return true;
+    }
+    return false;
 }
