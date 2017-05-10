@@ -1,7 +1,7 @@
 /* now we have Array groupList = [ object group of deg. = 0 , object group of deg. = 1 , .. ]
  * groupLists[0][0] --> object group = {degree: 0, members: Array of implicants}
  * groupLists[0][0].members --> [ object implicant , object implicant , .. ]
- * groupLists[0][0].members[0] --> object implicant = {baseValue: 1, bitsCovered: empty Array, isChecked: false, isDontCare: false, degree: 0}
+ * groupLists[0][0].members[0] --> object implicant = {baseValue: 1, bitsCovered: [], isChecked: false, isDontCare: false, degree: 1, mintermsCoverd: []}
  * in the end of this file we must have an Array of PrimeImplicants like this :
  * Array PrimeImplicants = [ object implicant , object implicant , .. ]
  * PrimeImplicants[0] = {baseValue: 2, bitsCovered: [1,2,4], isChecked: false, isDontCare: false, degree: 0}
@@ -38,9 +38,10 @@ function grouping(firstGroup, secondGroup, resultDegree) {
                 secondGroup[j].isChecked = true;
                 var resultBitsCoverd = firstGroup[i].bitsCovered.slice();
                 resultBitsCoverd.push(hamingDistance);
-                var resultImplicant = new implicant(firstGroup[i].baseValue, resultBitsCoverd, false, false);
+                var resultMintermsCovered = firstGroup[i].mintermsCovered.concat(secondGroup[j].mintermsCovered);
+                var resultImplicant = new implicant(firstGroup[i].baseValue, resultBitsCoverd, false, false, resultMintermsCovered);
                 if (!repeatedImpliacnt(resultImplicant, resultImplicants))
-                    resultImplicants.push(new implicant(firstGroup[i].baseValue, resultBitsCoverd, false, false));
+                    resultImplicants.push(new implicant(firstGroup[i].baseValue, resultBitsCoverd, false, false, resultMintermsCovered));
             }
         }
     }
