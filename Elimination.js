@@ -6,8 +6,14 @@
  * RemaningPI[0] = {baseValue: 1, bitsCovered: [2,4], isChecked: false, isDontCare: false, degree: 0, mintermsCoverd: [1,3]}
  */
 
+var remainingImplicants;
+var uncoveredMinTerms;
+
 function eliminationProcess() {
-	while (checkEssentialImplicants());
+	//duplicate primeImplicants array into remainingImplicants
+	remainingImplicants = primeImplicants.slice();
+	uncoveredMinTerms = minTerms.slice();
+	while (uncoveredMinTerms.length>0 && (checkEssentialImplicants() || checkRowDominance()));
 }
 
 function checkEssentialImplicants() {
@@ -20,8 +26,8 @@ function checkEssentialImplicants() {
 
 	//iterate on all implicant and increment the count
 	//for each min term they cover
-	for (var i=0; i<primeImplicants.length; i++) {
-		var primeImplicant = primeImplicants[i];
+	for (var i=0; i<remainingImplicants.length; i++) {
+		var primeImplicant = remainingImplicants[i];
 
 		for (var j=0; j<primeImplicant.mintermsCovered.length; j++) {
 			var term = primeImplicant.mintermsCovered[j]
@@ -35,28 +41,28 @@ function checkEssentialImplicants() {
 		}
 	}
 
-	for (var i=0; i<minTerms.length; i++) {
+	for (var i=0; i<uncoveredMinTerms.length; i++) {
 
 		//if a term is only covered by one implicant,
 		//find the implicant and add it to resultImplicants
-		if (termsCoverCount[minTerms[i]] == 1) {
-			for (var j=0; j<primeImplicants.length; j++) {
+		if (termsCoverCount[uncoveredMinTerms[i]] == 1) {
+			for (var j=0; j<remainingImplicants.length; j++) {
 
-				var primeImplicantMinterms = primeImplicants[j].mintermsCovered;
+				var primeImplicantMinterms = remainingImplicants[j].mintermsCovered;
 
-				if (primeImplicantMinterms.includes(minTerms[i])) {
+				if (primeImplicantMinterms.includes(uncoveredMinTerms[i])) {
 
 					//remove all minterms this implicant covers
 					for (var k=0; k<primeImplicantMinterms.length; k++) {
-						if (minTerms.includes(primeImplicantMinterms[k])) {
-							var termIndex = minTerms.indexOf(primeImplicantMinterms[k]);
-							minTerms.splice(termIndex,1)
+						if (uncoveredMinTerms.includes(primeImplicantMinterms[k])) {
+							var termIndex = uncoveredMinTerms.indexOf(primeImplicantMinterms[k]);
+							uncoveredMinTerms.splice(termIndex,1)
 						}
 					}
 
-					//add implicant to resultImplicants and remove it from primeImplicants
-					resultImplicants.push(primeImplicants[j]);
-					primeImplicants.splice(j,1);
+					//add implicant to resultImplicants and remove it from remainingImplicants
+					resultImplicants.push(remainingImplicants[j]);
+					remainingImplicants.splice(j,1);
 					essentialImplicantFound = true;
 					break;
 				}
@@ -67,3 +73,36 @@ function checkEssentialImplicants() {
 
 	return essentialImplicantFound;
 }
+
+//compares every two rows to check for row dominance
+function checkRowDominance() {
+	var rowDominanceFound = false;
+
+	for (var i=0; i<remainingImplicants.length; i++) {
+		for (var j=0; j<remainingImplicants.length; j++) {
+			if (i==j) continue;
+
+			//if dominance found, remove the dominated row
+			if (rowDominates(remainingImplicants[i], remainingImplicants[j])) {
+				remainingImplicants.splice(j,1);
+				rowDominanceFound = true;
+			}
+
+		}
+	}
+	return rowDominanceFound;
+}
+
+//checks if the first implicant row dominates the second implicant
+function rowDominates(imp1, imp2) {
+	for (var i=0; i<imp2.mintermsCovered.length; i++) {
+
+		var termInImp2 = imp2.mintermsCovered[i];
+
+		if (uncoveredMinTerms.includes(termInImp2) && !imp1.mintermsCovered.includes(termInImp2)) {
+			return false;
+		}
+	}
+	return true;
+}
+

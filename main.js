@@ -41,5 +41,7 @@ function main() {
 
     //Part 2
     eliminationProcess();
-    console.log(printImplicantArray("Essential Prime Implicants: ", resultImplicants));
+    console.log("After Elimination");
+    console.log(printImplicantArray("Remaining Implicants: ", remainingImplicants));
+    console.log(printImplicantArray("Result Implicants: ", resultImplicants));
 }
