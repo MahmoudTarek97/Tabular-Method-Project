@@ -36,17 +36,10 @@ function main() {
 
 
     //test output
-    var PI = "PrimeImplicants : ";
-    for (var i = 0; i < primeImplicants.length; i++) {
-        var bitsCovered = primeImplicants[i].bitsCovered;
-        var baseValue = primeImplicants[i].baseValue;
-        if (i != 0)
-            PI = PI.concat(" , ");
-        PI = PI.concat(baseValue + "(" + bitsCovered + ")");
-    }
-    console.log(PI);
+    
+    console.log(printImplicantArray("Prime Implicants: ", primeImplicants));
 
     //Part 2
     eliminationProcess();
-    console.log(resultImplicants)
+    console.log(printImplicantArray("Essential Prime Implicants: ", resultImplicants));
 }

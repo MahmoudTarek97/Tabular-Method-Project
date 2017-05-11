@@ -113,6 +113,21 @@ function setNumberOfInputs() {
     numberOfInputs = Math.ceil(Math.log2(max + 1));
 }
 
+//function takes a string as a prefix and
+//an array of implicants to print
+function printImplicantArray(prefixString,implicantArray) {
+    var str = prefixString;
+    for (var i = 0; i < implicantArray.length; i++) {
+        var bitsCovered = implicantArray[i].bitsCovered;
+        var baseValue = implicantArray[i].baseValue;
+        if (i != 0)
+            str = str.concat(" , ");
+        str = str.concat(baseValue + "(" + bitsCovered + ")");
+    }
+    return str;
+}
+
+
 //not used yet
 function clearTextFieldContents(id) {
     document.getElementById(id).value = "";
