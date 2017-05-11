@@ -95,13 +95,32 @@ function checkRowDominance() {
 
 //checks if the first implicant row-dominates the second implicant
 function rowDominates(imp1, imp2) {
+	//counters to check if both implicants cover the same minterms
+	var termsCount1 = 0;
+	var termsCount2 = 0;
+
 	for (var i=0; i<imp2.mintermsCovered.length; i++) {
 
 		var termInImp2 = imp2.mintermsCovered[i];
 
-		if (uncoveredMinTerms.includes(termInImp2) && !imp1.mintermsCovered.includes(termInImp2)) {
-			return false;
+		if (uncoveredMinTerms.includes(termInImp2)) {
+			if (!imp1.mintermsCovered.includes(termInImp2)) {
+				return false;
+			} else {
+				termsCount2++;
+			}
 		}
+	}
+
+	for (var i=0; i<imp1.mintermsCovered.length; i++) {
+		var termInImp1 = imp1.mintermsCovered[i];
+		if (uncoveredMinTerms.includes(termInImp1)) {
+			termsCount1++;
+		}
+	}
+
+	if (termsCount1 == termsCount2) {
+		return false;
 	}
 	return true;
 }
