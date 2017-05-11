@@ -13,7 +13,7 @@ function eliminationProcess() {
 	//duplicate primeImplicants array into remainingImplicants
 	remainingImplicants = primeImplicants.slice();
 	uncoveredMinTerms = minTerms.slice();
-	while (uncoveredMinTerms.length>0 && (checkEssentialImplicants() || checkRowDominance()));
+	//while (uncoveredMinTerms.length>0 && (checkEssentialImplicants() || checkRowDominance()));
 }
 
 function checkEssentialImplicants() {
@@ -93,7 +93,7 @@ function checkRowDominance() {
 	return rowDominanceFound;
 }
 
-//checks if the first implicant row dominates the second implicant
+//checks if the first implicant row-dominates the second implicant
 function rowDominates(imp1, imp2) {
 	for (var i=0; i<imp2.mintermsCovered.length; i++) {
 
@@ -106,3 +106,32 @@ function rowDominates(imp1, imp2) {
 	return true;
 }
 
+//compares every two columns to check for column dominance
+function checkColumnDominance() {
+	var columnDominanceFound = false;
+
+	for (var i=0; i<uncoveredMinTerms.length; i++) {
+		for (var j=0; j<uncoveredMinTerms.length; j++) {
+			if (i==j) continue;
+
+			//if dominance found, remove the dominated column
+			if (columnDominates(uncoveredMinTerms[i], uncoveredMinTerms[j])) {
+				uncoveredMinTerms.splice(j,1);
+				columnDominanceFound = true;
+			}
+		}
+	}
+	return columnDominanceFound;
+}
+
+//checks if the first minterm column-dominates the second minterm
+function columnDominates(term1, term2) {
+	for (var i=0; i<remainingImplicants.length; i++) {
+		var currentImplicantTerms = remainingImplicants[i].mintermsCovered;
+
+		if (currentImplicantTerms.includes(term1) && !currentImplicantTerms.includes(term2)) {
+			return false;
+		}
+	}
+	return true;
+}
