@@ -5,7 +5,8 @@ var minTerms;
 var dontCares;
 var numberOfInputs;
 var groupLists;
-var PrimeImplicants;
+var primeImplicants;
+var resultImplicants;
 
 function main() {
 
@@ -13,7 +14,8 @@ function main() {
     minTerms = [];
     dontCares = [];
     groupLists = [[]];
-    PrimeImplicants = [];
+    primeImplicants = [];
+    resultImplicants = [];
 
     //Part 0
     readInput(); //put them in Array minTerms & dontCares
@@ -35,9 +37,9 @@ function main() {
 
     //test output
     var PI = "PrimeImplicants : ";
-    for (var i = 0; i < PrimeImplicants.length; i++) {
-        var bitsCovered = PrimeImplicants[i].bitsCovered;
-        var baseValue = PrimeImplicants[i].baseValue;
+    for (var i = 0; i < primeImplicants.length; i++) {
+        var bitsCovered = primeImplicants[i].bitsCovered;
+        var baseValue = primeImplicants[i].baseValue;
         if (i != 0)
             PI = PI.concat(" , ");
         PI = PI.concat(baseValue + "(" + bitsCovered + ")");
@@ -45,6 +47,6 @@ function main() {
     console.log(PI);
 
     //Part 2
-    //stay tuned :)
-
+    eliminationProcess();
+    console.log(resultImplicants)
 }

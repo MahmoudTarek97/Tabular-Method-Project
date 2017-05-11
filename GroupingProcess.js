@@ -20,7 +20,7 @@ function groupingProcess(currentGroupList, generatedGroupList) {
     for (var i = 0; i < currentGroupList.length; i++) {
         for (var j = 0; j < currentGroupList[i].members.length; j++) {
             if (!currentGroupList[i].members[j].isChecked) {
-                PrimeImplicants.push(currentGroupList[i].members[j]);
+                primeImplicants.push(currentGroupList[i].members[j]);
             }
         }
     }
