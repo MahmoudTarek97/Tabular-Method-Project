@@ -42,7 +42,19 @@ function checkEssentialImplicants() {
 		if (termsCoverCount[minTerms[i]] == 1) {
 			for (var j=0; j<primeImplicants.length; j++) {
 
-				if (primeImplicants[j].mintermsCovered.includes(minTerms[i])) {
+				var primeImplicantMinterms = primeImplicants[j].mintermsCovered;
+
+				if (primeImplicantMinterms.includes(minTerms[i])) {
+
+					//remove all minterms this implicant covers
+					for (var k=0; k<primeImplicantMinterms.length; k++) {
+						if (minTerms.includes(primeImplicantMinterms[k])) {
+							var termIndex = minTerms.indexOf(primeImplicantMinterms[k]);
+							minTerms.splice(termIndex,1)
+						}
+					}
+
+					//add implicant to resultImplicants and remove it from primeImplicants
 					resultImplicants.push(primeImplicants[j]);
 					primeImplicants.splice(j,1);
 					essentialImplicantFound = true;
