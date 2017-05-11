@@ -13,7 +13,7 @@ function eliminationProcess() {
 	//duplicate primeImplicants array into remainingImplicants
 	remainingImplicants = primeImplicants.slice();
 	uncoveredMinTerms = minTerms.slice();
-	//while (uncoveredMinTerms.length>0 && (checkEssentialImplicants() || checkRowDominance()));
+	while (uncoveredMinTerms.length>0 && (checkEssentialImplicants() || checkRowDominance() || checkColumnDominance()));
 }
 
 function checkEssentialImplicants() {
