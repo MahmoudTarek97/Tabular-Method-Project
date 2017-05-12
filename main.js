@@ -36,7 +36,7 @@ function main() {
 
 
     //test output
-    
+
     console.log(printImplicantArray("Prime Implicants: ", primeImplicants));
 
     //Part 2
