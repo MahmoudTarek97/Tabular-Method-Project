@@ -41,9 +41,7 @@ function filterPowerSet(powerSet) {
     delete powerSet[0]; //now powerSet[0] = undefined
     //each invalid combaination will be undefined
     for (var i = 1; i < powerSet.length; i++) {
-        if (validCombination(powerSet[i]))
-            continue;
-        else
+        if (!validCombination(powerSet[i]))
             delete powerSet[i];
     }
     return removeUndefined(powerSet);
@@ -52,8 +50,20 @@ function filterPowerSet(powerSet) {
 
 //iterates over possible solutions, determines the length of the least solution possible
 //then removes all solutions that are bigger and returns an array of the minimal solutions
-function filterPossibleSolutions() {
+function filterPossibleSolutions(validSolutions) {
 
+    //determine min length
+    var minlength = validSolutions[0].length;
+    for (var i = 0; i < validSolutions.length; i++) {
+        if (validSolutions[i].length < minlength)
+            minlength = validSolutions[i].length;
+    }
+
+    for (var i = 0; i < validSolutions.length; i++) {
+        if (validSolutions[i].length > minlength)
+            delete validSolutions[i];
+    }
+    return removeUndefined(validSolutions);
 }
 
 
