@@ -76,7 +76,7 @@ function checkEssentialImplicants() {
 
 //compares every two rows to check for row dominance
 function checkRowDominance() {
-	var rowDominanceFound = false;
+	//var rowDominanceFound = false;
 
 	for (var i=0; i<remainingImplicants.length; i++) {
 		for (var j=0; j<remainingImplicants.length; j++) {
@@ -85,12 +85,14 @@ function checkRowDominance() {
 			//if dominance found, remove the dominated row
 			if (rowDominates(remainingImplicants[i], remainingImplicants[j])) {
 				remainingImplicants.splice(j,1);
-				rowDominanceFound = true;
+				return true;
+				//rowDominanceFound = true;
 			}
 
 		}
 	}
-	return rowDominanceFound;
+	return false;
+	//return rowDominanceFound;
 }
 
 //checks if the first implicant row-dominates the second implicant
@@ -127,7 +129,7 @@ function rowDominates(imp1, imp2) {
 
 //compares every two columns to check for column dominance
 function checkColumnDominance() {
-	var columnDominanceFound = false;
+	//var columnDominanceFound = false;
 
 	for (var i=0; i<uncoveredMinTerms.length; i++) {
 		for (var j=0; j<uncoveredMinTerms.length; j++) {
@@ -136,11 +138,13 @@ function checkColumnDominance() {
 			//if dominance found, remove the dominated column
 			if (columnDominates(uncoveredMinTerms[i], uncoveredMinTerms[j])) {
 				uncoveredMinTerms.splice(j,1);
-				columnDominanceFound = true;
+				return true;
+				//columnDominanceFound = true;
 			}
 		}
 	}
-	return columnDominanceFound;
+	return false;
+	//return columnDominanceFound;
 }
 
 //checks if the first minterm column-dominates the second minterm
