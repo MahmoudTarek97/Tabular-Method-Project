@@ -14,6 +14,11 @@ function branchingProcess() {
     implicantsPowerSet = powerSet(remainingImplicants);
     var validSolutions = filterPowerSet(implicantsPowerSet); //array contains valid cominations
     minimalSolutions = filterPossibleSolutions(validSolutions); //array contains valid combainations with least cost
+
+    //test
+    for (var i = 0; i < minimalSolutions.length; i++) {
+        console.log(printImplicantArray("MinimalSolution: ", minimalSolutions[i]));
+    }
 }
 
 
