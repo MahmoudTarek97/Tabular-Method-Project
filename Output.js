@@ -235,12 +235,13 @@ function generateCoverTable(implicants, terms) {
     tr1.setAttribute("class", "bottom-bordered");
 
     var th1 = document.createElement("th");
-    th1.setAttribute("class", "success");
+    th1.setAttribute("class", "success right-bordered");
     tr1.appendChild(th1);
 
     for (var i=0; i<terms.length; i++) {
         var th = document.createElement("th");
         var thText = document.createTextNode(terms[i]);
+        th.setAttribute("class", "bottom-bordered");
         th.appendChild(thText);
         tr1.appendChild(th);
     }
@@ -254,7 +255,9 @@ function generateCoverTable(implicants, terms) {
         var tr = document.createElement("tr");
 
         var th = document.createElement("th");
+
         var thText = document.createTextNode(generateImplicantExpression(primeImplicants[i]));
+        th.setAttribute("class", "right-bordered");
         th.appendChild(thText);
         tr.appendChild(th);
 
