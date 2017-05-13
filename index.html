@@ -3,6 +3,13 @@
 
 <head>
     <style>
+        body { 
+            background: url(wallpaper2.jpg) no-repeat center center fixed; 
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
         tr.top-bordered {
             border-top: 3px solid #7D7D7D !important;
         }
@@ -11,6 +18,10 @@
         }
         th.right-bordered {
             border-right: 3px solid #7D7D7D !important;
+        }
+        .jumbotron{
+            color: #FFFFFF;
+            background-color:none !important;
         }
 
     </style>
@@ -22,7 +33,7 @@
 
 <body onLoad="checkFileAPI();">
     <div class="container">
-        <h1>Tabular Method Project <small>just for test</small></h1>
+        <h1>Tabular Method Project <small>Quine–McCluskey</small></h1>
         <div class="jumbotron">
             <form id="Form">
 
@@ -80,24 +91,21 @@
         </div>
 
         <div id=output>
-
             <!-- Answer goes here -->
         </div>
         
         <div id="grouping">
-
+            <!-- Grouping steps go here -->
         </div>
 
         <div id="coverTables">
-
+            <!-- Implicants/Minterms tables go here -->
         </div>
 
-
-        
-
-        <div class="footer">
-            <p>&copy <a>CSED20</a> | <a>by Mahmoud Tarek & Khaled Barie</a></p>
-        </div>
+            <div class="panel panel-default">
+                <div class="panel-footer">
+                    <p>&copy CSED20 | by <a>Mahmoud Tarek</a> & <a>Khaled Barie</a></p>
+                </div>
 
         <script src="Output.js"></script>
         <script src="Input.js"></script>
