@@ -83,6 +83,7 @@ function main() {
     }
 
     printOutput();
+    printSteps();
 
     //code to show download button after first simplify
     createDownloadButton();

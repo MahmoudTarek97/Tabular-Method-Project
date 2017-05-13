@@ -31,18 +31,38 @@ function printOutput() {
     }
 
     outputDiv.appendChild(jumbotronDiv);
-    generateGroupListsTables();
 }
 
+function createDownloadButton() {
+
+    buttonDiv = document.getElementById("downloadButton");
+    while (buttonDiv.hasChildNodes()) {
+        buttonDiv.removeChild(buttonDiv.lastChild);
+    }
+
+    divCol6 = document.createElement("div");
+    divCol6.setAttribute("class", "col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right");
+
+    button = document.createElement("input");
+    button.setAttribute("type", "submit");
+    button.setAttribute("class", "btn btn-primary btn-lg");
+    button.setAttribute("onClick", "download('output.txt', output);");
+    button.setAttribute("value", "Download");
+
+    divCol6.appendChild(button);
+    buttonDiv.appendChild(divCol6)
+}
+
+function printSteps() {
+    generateGroupListsTables();
+    generateCoverTables();
+}
+
+//-------------------------------------Grouping Process Functions--------------------
 /*
  * Creates tables out
  * of the group lists
  */
-function printSteps() {
-    var jumbotronDiv = document.createElement("div");
-    jumbotronDiv.setAttribute("class", "jumbotron");
-}
-
 function generateGroupListsTables() {
     var divContainer = document.createElement("div");
     divContainer.setAttribute("class", "container-fluid")
@@ -59,19 +79,33 @@ function generateGroupListsTables() {
         divContainer.appendChild(groupListTable);
     }
     
-    var stepsDiv = document.getElementById("steps");
+    var groupingDiv = document.getElementById("grouping");
 
     //removes content of the output div in case the user enters another input without refreshing
-    while (stepsDiv.hasChildNodes()) {
-        stepsDiv.removeChild(stepsDiv.lastChild);
+    while (groupingDiv.hasChildNodes()) {
+        groupingDiv.removeChild(groupingDiv.lastChild);
     }
+
+    var primeImplicantsStringArr  = [];
+    for (var i=0; i<primeImplicants.length; i++) {
+        primeImplicantsStringArr.push(generateImplicantExpression(primeImplicants[i]));
+    }
+    var paragraph = document.createElement("p");
+    var paragraphText = document.createTextNode("Prime Implicants Found: " + primeImplicantsStringArr.join(", "))
+    paragraph.appendChild(paragraphText);
 
     //Add jumbotron containing all group list tables
     jumbotronDiv.appendChild(header);
     jumbotronDiv.appendChild(divContainer);
-    stepsDiv.appendChild(jumbotronDiv);
+    jumbotronDiv.appendChild(paragraph);
+    groupingDiv.appendChild(jumbotronDiv);
 }
 
+/*
+ * Creates one table out
+ * of a group list
+ * returns a div containing the table
+ */
 function generateGroupListTable(groupList, index) {
     
 
@@ -105,6 +139,11 @@ function generateGroupListTable(groupList, index) {
     return divCol4;
 }
 
+/*
+ * Creates table body and
+ * populates it with data of the implicant
+ * returns a populated table bodyl
+ */
 function generateGroupListTableBody(groupList) {
     var tbody = document.createElement("tbody");
 
@@ -116,7 +155,7 @@ function generateGroupListTableBody(groupList) {
 
             var tr = document.createElement("tr");
             if (j==0) {
-                tr.setAttribute("class", "bordered")
+                tr.setAttribute("class", "top-bordered")
             }
 
             var td1 = document.createElement("td");
@@ -144,6 +183,100 @@ function generateGroupListTableBody(groupList) {
     }
     return tbody;
 }
+
+//-------------------------------------Minterms Implicants tables functions--------------------
+
+function generateCoverTables() {
+    var coverTablesDiv = document.getElementById("coverTables");
+    var jumbotronDiv = document.createElement("div");
+    jumbotronDiv.setAttribute("class", "jumbotron");
+    var divContainer = document.createElement("div");
+    divContainer.setAttribute("class", "container");
+
+    var h3 = document.createElement("h3");
+    var h3Text = document.createTextNode("Implicants/Minterms tables: ");
+    h3.appendChild(h3Text);
+    jumbotronDiv.appendChild(h3);
+
+    var divRow = document.createElement("div");
+    divRow.setAttribute("class", "row text-center");
+    divRow.appendChild(generateCoverTable(primeImplicants, minTerms));
+    divContainer.appendChild(divRow);
+
+    if (uncoveredMinTerms.length >0) {
+        var h4 = document.createElement("h4");
+        var h4Text = document.createTextNode("After Elimination: ");
+        h4.appendChild(h4Text);
+        divContainer.appendChild(h4);
+
+        var divRow = document.createElement("div");
+        divRow.setAttribute("class", "row text-center");
+        divRow.appendChild(generateCoverTable(remainingImplicants, uncoveredMinTerms));
+        divContainer.appendChild(divRow);
+    }
+
+    while (coverTablesDiv.hasChildNodes()) {
+        coverTablesDiv.removeChild(coverTablesDiv.lastChild);
+    }
+
+    jumbotronDiv.appendChild(divContainer);
+    coverTablesDiv.appendChild(jumbotronDiv);
+}
+
+function generateCoverTable(implicants, terms) {
+    var divTableResponsive = document.createElement("div");
+    divTableResponsive.setAttribute("class", "table-responsive");
+
+    var table = document.createElement("table");
+    table.setAttribute("class", "table table-bordered");
+
+    var thead = document.createElement("thead");
+    var tr1 = document.createElement("tr");
+    tr1.setAttribute("class", "bottom-bordered");
+
+    var th1 = document.createElement("th");
+    th1.setAttribute("class", "success");
+    tr1.appendChild(th1);
+
+    for (var i=0; i<terms.length; i++) {
+        var th = document.createElement("th");
+        var thText = document.createTextNode(terms[i]);
+        th.appendChild(thText);
+        tr1.appendChild(th);
+    }
+    thead.appendChild(tr1);
+    
+    var tbody = document.createElement("tbody");
+
+    for (var i=0; i<primeImplicants.length; i++) {
+        var termsCovered = primeImplicants[i].mintermsCovered;
+
+        var tr = document.createElement("tr");
+
+        var th = document.createElement("th");
+        var thText = document.createTextNode(generateImplicantExpression(primeImplicants[i]));
+        th.appendChild(thText);
+        tr.appendChild(th);
+
+        for (var j=0; j<terms.length; j++) {
+            var td = document.createElement("td");
+            if (termsCovered.includes(terms[j])) {
+                var tdText = document.createTextNode("X");
+                td.appendChild(tdText);
+            }
+
+            tr.appendChild(td);
+        }
+
+        tbody.appendChild(tr);
+    }
+
+    table.appendChild(thead);
+    table.appendChild(tbody);
+    divTableResponsive.appendChild(table);
+    return divTableResponsive;
+}
+//-------------------------------------Implicants to literals functions--------------------
 
 //takes an array of all the valid solutions
 //returns an array of strings each an expression for a solution
@@ -205,22 +338,4 @@ function generateImplicantExpression(imp) {
     return charArr.join('');
 }
 
-function createDownloadButton() {
 
-    buttonDiv = document.getElementById("downloadButton");
-    while (buttonDiv.hasChildNodes()) {
-        buttonDiv.removeChild(buttonDiv.lastChild);
-    }
-
-    divCol6 = document.createElement("div");
-    divCol6.setAttribute("class", "col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right");
-
-    button = document.createElement("input");
-    button.setAttribute("type", "submit");
-    button.setAttribute("class", "btn btn-primary btn-lg");
-    button.setAttribute("onClick", "download('output.txt', output);");
-    button.setAttribute("value", "Download");
-
-    divCol6.appendChild(button);
-    buttonDiv.appendChild(divCol6)
-}
