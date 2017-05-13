@@ -84,5 +84,8 @@ function main() {
 
     printOutput();
 
+    //code to show download button after first simplify
+    createDownloadButton();
+
 
 }

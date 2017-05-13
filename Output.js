@@ -204,3 +204,23 @@ function generateImplicantExpression(imp) {
 
     return charArr.join('');
 }
+
+function createDownloadButton() {
+
+    buttonDiv = document.getElementById("downloadButton");
+    while (buttonDiv.hasChildNodes()) {
+        buttonDiv.removeChild(buttonDiv.lastChild);
+    }
+
+    divCol6 = document.createElement("div");
+    divCol6.setAttribute("class", "col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right");
+
+    button = document.createElement("input");
+    button.setAttribute("type", "submit");
+    button.setAttribute("class", "btn btn-primary btn-lg");
+    button.setAttribute("onClick", "download('output.txt', output);");
+    button.setAttribute("value", "Download");
+
+    divCol6.appendChild(button);
+    buttonDiv.appendChild(divCol6)
+}
