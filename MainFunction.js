@@ -7,6 +7,7 @@ var numberOfInputs;
 var groupLists;
 var primeImplicants;
 var resultImplicants;
+var solutions;
 
 function main() {
 
@@ -16,10 +17,17 @@ function main() {
     groupLists = [[]];
     primeImplicants = [];
     resultImplicants = [];
+    solutions = [];
 
     //Part 0
     readInput(); //put them in Array minTerms & dontCares
 
+    if (inputIsValid()) {
+        setNumberOfInputs();
+    } else {
+        printError();
+        return;
+    }
 
     //Part 1
     initializeGroupList();
@@ -46,5 +54,19 @@ function main() {
     console.log(printImplicantArray("Result Implicants: ", resultImplicants));
 
     //part 3
-    branchingProcess();
+    if (uncoveredMinTerms.length > 0) {
+        branchingProcess();
+    }
+
+    if (minimalSolutions != undefined) {
+        for (var i=0; i<minimalSolutions.length; i++) {
+            solutions.push(resultImplicants.concat(minimalSolutions[i]));
+        }
+    } else {
+        solutions.push(resultImplicants);
+    }
+
+    printOutput();
+ 
+
 }

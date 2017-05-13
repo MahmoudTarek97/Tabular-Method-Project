@@ -9,38 +9,8 @@ function readInput() {
     minTerms = filterInput(minTermsString);
     dontCares = filterInput(dontCaresString);
 
-    if (inputIsValid()) {
-        setNumberOfInputs();
-        printOutput();
-    } else {
-        printError();
-    }
-
 }
 
-
-//creates an HTML element to display output
-function printOutput() {
-    // alert("You Entered minterms: " + minTerms + " And don't cares: " + dontCares);
-    //    console.log("minterms : ", minTerms, "don't cares : ", dontCares);
-
-    var jumbotronDiv = document.createElement("div");
-    jumbotronDiv.setAttribute("class", "jumbotron")
-
-    var para = document.createElement("p");
-    var paragraphText = document.createTextNode("You Entered minterms: " + minTerms + " And don't cares: " + dontCares + " and number of inputs = " + numberOfInputs);
-    para.appendChild(paragraphText);
-
-    jumbotronDiv.append(para)
-    var outputDiv = document.getElementById("output");
-
-    //removes content of the output div in case the user enters another input without refreshing
-    while (outputDiv.hasChildNodes()) {
-        outputDiv.removeChild(outputDiv.lastChild);
-    }
-
-    outputDiv.appendChild(jumbotronDiv);
-}
 
 //prints an error message
 function printError() {
