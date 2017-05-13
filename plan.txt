@@ -83,6 +83,7 @@ function checkColumnDominance(Array of prime implicants, Array of minterms)
 
 ------------------------------------------Output --------------------------------------
 
-
+function 
 function generateExpression(solution)
-	//takes a solution and generates its expression
+	//takes a solution and generates its expression in literals
+	//example A'BC+B'C

@@ -1,10 +1,6 @@
 
 //creates an HTML element to display output
-var string = "";
 function printOutput() {
-    // alert("You Entered minterms: " + minTerms + " And don't cares: " + dontCares);
-    //    console.log("minterms : ", minTerms, "don't cares : ", dontCares);
-
     var jumbotronDiv = document.createElement("div");
     jumbotronDiv.setAttribute("class", "jumbotron")
 
@@ -20,12 +16,7 @@ function printOutput() {
         var solutionText = document.createTextNode("Solution " + (i+1) + ": " + solutionsExpressions[i]);
         solutionParagraph.appendChild(solutionText);
         jumbotronDiv.append(solutionParagraph);
-        solutionString = string.concat(solutionsExpressions[i]);
     }
-
-
-    
-    
 
     var outputDiv = document.getElementById("output");
 
@@ -35,8 +26,119 @@ function printOutput() {
     }
 
     outputDiv.appendChild(jumbotronDiv);
+    generateGroupListsTables();
 }
 
+/*
+ * Creates tables out
+ * of the group lists
+ */
+function printSteps() {
+    var jumbotronDiv = document.createElement("div");
+    jumbotronDiv.setAttribute("class", "jumbotron");
+}
+
+function generateGroupListsTables() {
+    var divContainer = document.createElement("div");
+    divContainer.setAttribute("class", "container-fluid")
+
+    var jumbotronDiv = document.createElement("div");
+    jumbotronDiv.setAttribute("class", "jumbotron");
+
+    var header = document.createElement("h3");
+    var headerText = document.createTextNode("Grouping Process");
+    header.appendChild(headerText);
+
+    for (var i=0; i<groupLists.length; i++) {
+        groupListTable = generateGroupListTable(groupLists[i], i);
+        divContainer.appendChild(groupListTable);
+    }
+    
+    var stepsDiv = document.getElementById("steps");
+
+    //removes content of the output div in case the user enters another input without refreshing
+    while (stepsDiv.hasChildNodes()) {
+        stepsDiv.removeChild(stepsDiv.lastChild);
+    }
+
+    //Add jumbotron containing all group list tables
+    jumbotronDiv.appendChild(header);
+    jumbotronDiv.appendChild(divContainer);
+    stepsDiv.appendChild(jumbotronDiv);
+}
+
+function generateGroupListTable(groupList, index) {
+    
+
+    var divCol4 = document.createElement("div");
+    divCol4.setAttribute("class", "col-xs-6 col-sm-6 col-md-3 col-lg-3");
+
+    var divTableResponsive = document.createElement("div");
+    divTableResponsive.setAttribute("class", "table-responsive");
+
+    var table = document.createElement("table");
+    table.setAttribute("class", "table table-bordered");
+
+    var thead = document.createElement("thead");
+    var tr1 = document.createElement("tr");
+    var th = document.createElement("th");
+    th.setAttribute("colspan", 2);
+    th.setAttribute("class", "success");
+    thText = document.createTextNode("Implicants of size " + Math.pow(2,index));
+    th.appendChild(thText);
+
+    tr1.appendChild(th);
+    thead.appendChild(tr1);
+    table.appendChild(thead);
+
+
+    var tbody = generateGroupListTableBody(groupList);
+
+    table.appendChild(tbody);
+    divTableResponsive.appendChild(table);
+    divCol4.appendChild(divTableResponsive);
+    return divCol4;
+}
+
+function generateGroupListTableBody(groupList) {
+    var tbody = document.createElement("tbody");
+
+    for (var i=0; i<groupList.length; i++) {
+        var group = groupList[i];
+
+        for (var j=0; j<group.members.length; j++) {
+            implicant = group.members[j];
+
+            var tr = document.createElement("tr");
+            if (j==0) {
+                tr.setAttribute("class", "bordered")
+            }
+
+            var td1 = document.createElement("td");
+            td1Text = document.createTextNode(implicant.mintermsCovered.join(", "));
+            td1.appendChild(td1Text);
+
+            var td2 = document.createElement("td");
+            var symbol;
+            if (implicant.isChecked) {
+                symbol = "✓";
+            } else {
+                symbol = "Prime";
+            }
+
+            if (implicant.isDontCare) {
+                symbol = symbol + " Dont care";
+            }
+            td2Text = document.createTextNode(symbol);
+            td2.appendChild(td2Text);
+
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            tbody.appendChild(tr);
+        }
+    }
+    return tbody;
+}
 
 //takes an array of all the valid solutions
 //returns an array of strings each an expression for a solution
@@ -48,7 +150,9 @@ function generateSolutionsExpressions() {
     return solutionsExpressions;
 }
 
-//takes an array of implicants representing a valid solution
+/*takes an array of implicants representing a valid solution
+ *returns a string representing the expression of these implicants in literals
+ */
 function generateSolutionExpression(solution) {
     var expression = [];
     for (var i=0; i<solution.length; i++) {
@@ -57,8 +161,9 @@ function generateSolutionExpression(solution) {
     return expression.join(" + ");
 }
 
-//takes an implicant
-//returns it in form of literals
+/*takes one implicant
+ *and returns it in form of literals
+ */
 function generateImplicantExpression(implicant) {
     var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     var charArr = [];
@@ -71,7 +176,8 @@ function generateImplicantExpression(implicant) {
 
     for (var i=0; i<numberOfInputs; i++) {
         if (baseValue & 1<<i) {
-            charArr[i] = "1";
+            var flippedIndex = numberOfInputs - 1 - i;
+            charArr[flippedIndex] = "1";
         }
     }
 
