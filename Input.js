@@ -85,7 +85,7 @@ function setNumberOfInputs() {
 
 //function takes a string as a prefix and
 //an array of implicants to print
-function printImplicantArray(prefixString,implicantArray) {
+function printImplicantArray(prefixString, implicantArray) {
     var str = prefixString;
     for (var i = 0; i < implicantArray.length; i++) {
         var bitsCovered = implicantArray[i].bitsCovered;

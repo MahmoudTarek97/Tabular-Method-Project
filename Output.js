@@ -1,6 +1,7 @@
 //creates an HTML element to display output
 var output;
 var string = "";
+var solutionsExpressions;
 
 function printOutput() {
     // alert("You Entered minterms: " + minTerms + " And don't cares: " + dontCares);
@@ -13,8 +14,9 @@ function printOutput() {
     var paragraphText = document.createTextNode("You Entered minterms: " + minTerms + " And don't cares: " + dontCares + " and number of inputs = " + numberOfInputs);
     para.appendChild(paragraphText);
     jumbotronDiv.append(para);
-
-    solutionsExpressions = generateSolutionsExpressions();
+    if (!specialcase) {
+        solutionsExpressions = generateSolutionsExpressions();
+    }
     output = "";
     for (var i = 0; i < solutionsExpressions.length; i++) {
         var solutionParagraph = document.createElement("p");
