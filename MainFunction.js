@@ -8,6 +8,7 @@ var groupLists;
 var primeImplicants;
 var resultImplicants;
 var solutions;
+var specialcase;
 
 function main() {
 
@@ -18,6 +19,7 @@ function main() {
     primeImplicants = [];
     resultImplicants = [];
     solutions = [];
+    solutionsExpressions = [];
 
     //Part 0
     readInput(); //put them in Array minTerms & dontCares
@@ -26,6 +28,21 @@ function main() {
         setNumberOfInputs();
     } else {
         printError();
+        return;
+    }
+
+    //special cases
+    specialcase = false;
+    if (minTerms.length == 0) {
+        solutionsExpressions = ["0"];
+        specialcase = true;
+        printOutput();
+        return;
+    }
+    if (minTerms.length == Math.pow(2, numberOfInputs)) {
+        solutionsExpressions = ["1"];
+        specialcase = true;
+        printOutput();
         return;
     }
 
@@ -38,8 +55,7 @@ function main() {
         var generatedGroupList = groupingProcess(groupLists[i], groupLists[i + 1]);
         console.log(generatedGroupList)
         i++;
-    }
-    while (!isEmptyGroupList(generatedGroupList));
+    } while (!isEmptyGroupList(generatedGroupList));
     groupLists.pop();
 
 
@@ -59,7 +75,7 @@ function main() {
     }
 
     if (minimalSolutions != undefined) {
-        for (var i=0; i<minimalSolutions.length; i++) {
+        for (var i = 0; i < minimalSolutions.length; i++) {
             solutions.push(resultImplicants.concat(minimalSolutions[i]));
         }
     } else {
@@ -67,6 +83,6 @@ function main() {
     }
 
     printOutput();
- 
+
 
 }

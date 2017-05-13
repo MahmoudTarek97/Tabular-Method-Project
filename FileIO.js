@@ -6,7 +6,7 @@ var reader;
 function checkFileAPI() {
     if (window.File && window.FileReader && window.FileList && window.Blob) {
         reader = new FileReader();
-        return true; 
+        return true;
     } else {
         alert('The File APIs are not fully supported by your browser. Fallback required.');
         return false;
@@ -18,18 +18,17 @@ function checkFileAPI() {
  */
 function readText(filePath) {
     var output = "";
-    if(filePath.files && filePath.files[0]) {           
+    if (filePath.files && filePath.files[0]) {
         reader.onload = function (e) {
             output = e.target.result;
             pareseInput(output);
         };
         reader.readAsText(filePath.files[0]);
-    }
-    else {
+    } else {
         return false;
-    }       
+    }
     return true;
-}   
+}
 
 /**
  * splits the lines of the text input
@@ -45,7 +44,25 @@ function pareseInput(txt) {
  */
 function displayInput(minterms, dontCares) {
     var mintermInput = document.getElementById('Minterms');
-    var dontCareInput = document.getElementById('DontCares');
+    var dontCareInput;
+    if (input[1] != undefined) {
+        dontCareInput = document.getElementById('DontCares');
+    } else {
+        dontCareInput = "";
+    }
     mintermInput.value = minterms;
     dontCareInput.value = dontCares;
-}  
+}
+
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+}

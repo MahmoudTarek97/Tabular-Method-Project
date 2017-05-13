@@ -1,5 +1,8 @@
-
 //creates an HTML element to display output
+
+var output;
+var solutionsExpressions;
+
 function printOutput() {
     var jumbotronDiv = document.createElement("div");
     jumbotronDiv.setAttribute("class", "jumbotron")
@@ -8,12 +11,14 @@ function printOutput() {
     var paragraphText = document.createTextNode("You Entered minterms: " + minTerms + " And don't cares: " + dontCares + " and number of inputs = " + numberOfInputs);
     para.appendChild(paragraphText);
     jumbotronDiv.append(para);
-
-
-    solutionsExpressions = generateSolutionsExpressions();    
-    for (var i=0; i<solutionsExpressions.length; i++) {
+    if (!specialcase) {
+        solutionsExpressions = generateSolutionsExpressions();
+    }
+    output = "";
+    for (var i = 0; i < solutionsExpressions.length; i++) {
         var solutionParagraph = document.createElement("p");
-        var solutionText = document.createTextNode("Solution " + (i+1) + ": " + solutionsExpressions[i]);
+        var solutionText = document.createTextNode("Solution " + (i + 1) + ": " + solutionsExpressions[i]);
+        output = output.concat("Solution " + (i + 1) + ": " + solutionsExpressions[i] + "\n");
         solutionParagraph.appendChild(solutionText);
         jumbotronDiv.append(solutionParagraph);
     }
@@ -107,7 +112,7 @@ function generateGroupListTableBody(groupList) {
         var group = groupList[i];
 
         for (var j=0; j<group.members.length; j++) {
-            implicant = group.members[j];
+            imp = group.members[j];
 
             var tr = document.createElement("tr");
             if (j==0) {
@@ -115,18 +120,18 @@ function generateGroupListTableBody(groupList) {
             }
 
             var td1 = document.createElement("td");
-            td1Text = document.createTextNode(implicant.mintermsCovered.join(", "));
+            td1Text = document.createTextNode(imp.mintermsCovered.join(", "));
             td1.appendChild(td1Text);
 
             var td2 = document.createElement("td");
             var symbol;
-            if (implicant.isChecked) {
+            if (imp.isChecked) {
                 symbol = "✓";
             } else {
                 symbol = "Prime";
             }
 
-            if (implicant.isDontCare) {
+            if (imp.isDontCare) {
                 symbol = symbol + " Dont care";
             }
             td2Text = document.createTextNode(symbol);
@@ -144,7 +149,7 @@ function generateGroupListTableBody(groupList) {
 //returns an array of strings each an expression for a solution
 function generateSolutionsExpressions() {
     var solutionsExpressions = [];
-    for (var i=0; i<solutions.length; i++) {
+    for (var i = 0; i < solutions.length; i++) {
         solutionsExpressions.push(generateSolutionExpression(solutions[i]))
     }
     return solutionsExpressions;
@@ -155,7 +160,7 @@ function generateSolutionsExpressions() {
  */
 function generateSolutionExpression(solution) {
     var expression = [];
-    for (var i=0; i<solution.length; i++) {
+    for (var i = 0; i < solution.length; i++) {
         expression.push(generateImplicantExpression(solution[i]))
     }
     return expression.join(" + ");
@@ -164,13 +169,13 @@ function generateSolutionExpression(solution) {
 /*takes one implicant
  *and returns it in form of literals
  */
-function generateImplicantExpression(implicant) {
+function generateImplicantExpression(imp) {
     var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     var charArr = [];
-    var baseValue = implicant.baseValue;
-    var bitsCovered = implicant.bitsCovered;
+    var baseValue = imp.baseValue;
+    var bitsCovered = imp.bitsCovered;
 
-    for (var i=0; i<numberOfInputs; i++) {
+    for (var i = 0; i < numberOfInputs; i++) {
         charArr.push("0");
     }
 
@@ -181,20 +186,20 @@ function generateImplicantExpression(implicant) {
         }
     }
 
-    for (var i=0; i<bitsCovered.length; i++) {
+    for (var i = 0; i < bitsCovered.length; i++) {
         var index = Math.log2(bitsCovered[i]);
         var flippedIndex = numberOfInputs - 1 - index;
         charArr[flippedIndex] = "x";
     }
 
-    for (var i=0; i<charArr.length; i++) {
+    for (var i = 0; i < charArr.length; i++) {
         if (charArr[i] == "0") {
             charArr[i] = alphabet[i].concat("'");
         } else if (charArr[i] == "1") {
             charArr[i] = alphabet[i];
         } else if (charArr[i] == "x") {
             charArr[i] = "";
-        } 
+        }
     }
 
     return charArr.join('');
