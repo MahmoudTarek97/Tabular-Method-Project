@@ -1,6 +1,7 @@
-
 //creates an HTML element to display output
+var output;
 var string = "";
+
 function printOutput() {
     // alert("You Entered minterms: " + minTerms + " And don't cares: " + dontCares);
     //    console.log("minterms : ", minTerms, "don't cares : ", dontCares);
@@ -13,19 +14,17 @@ function printOutput() {
     para.appendChild(paragraphText);
     jumbotronDiv.append(para);
 
-
-    solutionsExpressions = generateSolutionsExpressions();    
-    for (var i=0; i<solutionsExpressions.length; i++) {
+    solutionsExpressions = generateSolutionsExpressions();
+    output = "";
+    for (var i = 0; i < solutionsExpressions.length; i++) {
         var solutionParagraph = document.createElement("p");
-        var solutionText = document.createTextNode("Solution " + (i+1) + ": " + solutionsExpressions[i]);
+        var solutionText = document.createTextNode("Solution " + (i + 1) + ": " + solutionsExpressions[i]);
+        output = output.concat("Solution " + (i + 1) + ": " + solutionsExpressions[i] + "\n");
         solutionParagraph.appendChild(solutionText);
         jumbotronDiv.append(solutionParagraph);
         solutionString = string.concat(solutionsExpressions[i]);
     }
 
-
-    
-    
 
     var outputDiv = document.getElementById("output");
 
@@ -42,7 +41,7 @@ function printOutput() {
 //returns an array of strings each an expression for a solution
 function generateSolutionsExpressions() {
     var solutionsExpressions = [];
-    for (var i=0; i<solutions.length; i++) {
+    for (var i = 0; i < solutions.length; i++) {
         solutionsExpressions.push(generateSolutionExpression(solutions[i]))
     }
     return solutionsExpressions;
@@ -51,7 +50,7 @@ function generateSolutionsExpressions() {
 //takes an array of implicants representing a valid solution
 function generateSolutionExpression(solution) {
     var expression = [];
-    for (var i=0; i<solution.length; i++) {
+    for (var i = 0; i < solution.length; i++) {
         expression.push(generateImplicantExpression(solution[i]))
     }
     return expression.join(" + ");
@@ -65,30 +64,30 @@ function generateImplicantExpression(implicant) {
     var baseValue = implicant.baseValue;
     var bitsCovered = implicant.bitsCovered;
 
-    for (var i=0; i<numberOfInputs; i++) {
+    for (var i = 0; i < numberOfInputs; i++) {
         charArr.push("0");
     }
 
-    for (var i=0; i<numberOfInputs; i++) {
-        if (baseValue & 1<<i) {
+    for (var i = 0; i < numberOfInputs; i++) {
+        if (baseValue & 1 << i) {
             charArr[i] = "1";
         }
     }
 
-    for (var i=0; i<bitsCovered.length; i++) {
+    for (var i = 0; i < bitsCovered.length; i++) {
         var index = Math.log2(bitsCovered[i]);
         var flippedIndex = numberOfInputs - 1 - index;
         charArr[flippedIndex] = "x";
     }
 
-    for (var i=0; i<charArr.length; i++) {
+    for (var i = 0; i < charArr.length; i++) {
         if (charArr[i] == "0") {
             charArr[i] = alphabet[i].concat("'");
         } else if (charArr[i] == "1") {
             charArr[i] = alphabet[i];
         } else if (charArr[i] == "x") {
             charArr[i] = "";
-        } 
+        }
     }
 
     return charArr.join('');

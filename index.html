@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 
-<body onLoad = checkFileAPI()>
+<body onLoad="checkFileAPI();">
     <div class="container">
         <h1>Tabular Method Project <small>just for test</small></h1>
         <div class="jumbotron">
@@ -62,7 +62,12 @@
         </div>
 
         <div id=output>
+        </div>
 
+        <div>
+            <form onsubmit="download('output.txt', output);">
+                <input type="submit" value="Download" class="btn btn-primary btn-lg">
+            </form>
         </div>
 
         <div class="footer">
