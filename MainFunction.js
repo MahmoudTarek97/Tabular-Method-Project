@@ -48,7 +48,7 @@ function main() {
     }
     if (specialcase) {
         printOutput();
-        printSteps();
+        clearSteps();
         createDownloadButton();
         return;
     }
@@ -77,6 +77,7 @@ function main() {
     console.log(printImplicantArray("Result Implicants: ", resultImplicants));
 
     //part 3
+    minimalSolutions = undefined;
     if (uncoveredMinTerms.length > 0) {
         branchingProcess();
     }
@@ -90,6 +91,7 @@ function main() {
     }
 
     printOutput();
+    clearSteps();
     printSteps();
 
     //code to show download button after first simplify

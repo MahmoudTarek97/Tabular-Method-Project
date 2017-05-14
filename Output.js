@@ -54,10 +54,30 @@ function createDownloadButton() {
 }
 
 function printSteps() {
-    generateGroupListsTables();
-    generateCoverTables();
+    
+    if (!specialcase) {
+        generateGroupListsTables();
+    }
+
+    if (uncoveredMinTerms != undefined) {
+        generateCoverTables();
+    }
+        
 }
 
+function clearSteps() {
+    var groupingDiv = document.getElementById("grouping");
+    var coverTablesDiv = document.getElementById("coverTables");
+
+    //removes content of the output div in case the user enters another input without refreshing
+    while (groupingDiv.hasChildNodes()) {
+        groupingDiv.removeChild(groupingDiv.lastChild);
+    }
+
+    while (coverTablesDiv.hasChildNodes()) {
+        coverTablesDiv.removeChild(coverTablesDiv.lastChild);
+    }
+}
 //-------------------------------------Grouping Process Functions--------------------
 /*
  * Creates tables out
@@ -80,11 +100,6 @@ function generateGroupListsTables() {
     }
     
     var groupingDiv = document.getElementById("grouping");
-
-    //removes content of the output div in case the user enters another input without refreshing
-    while (groupingDiv.hasChildNodes()) {
-        groupingDiv.removeChild(groupingDiv.lastChild);
-    }
 
     var primeImplicantsStringArr  = [];
     for (var i=0; i<primeImplicants.length; i++) {
@@ -215,10 +230,6 @@ function generateCoverTables() {
         divContainer.appendChild(divRow);
     }
 
-    while (coverTablesDiv.hasChildNodes()) {
-        coverTablesDiv.removeChild(coverTablesDiv.lastChild);
-    }
-
     jumbotronDiv.appendChild(divContainer);
     coverTablesDiv.appendChild(jumbotronDiv);
 }
@@ -284,7 +295,7 @@ function generateCoverTable(implicants, terms) {
 //takes an array of all the valid solutions
 //returns an array of strings each an expression for a solution
 function generateSolutionsExpressions() {
-    var solutionsExpressions = [];
+    solutionsExpressions = [];
     for (var i = 0; i < solutions.length; i++) {
         solutionsExpressions.push(generateSolutionExpression(solutions[i]))
     }
