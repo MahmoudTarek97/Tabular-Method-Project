@@ -1,8 +1,8 @@
 --------------------------------------------Overview----------------------------------
 // javascript is a functional programming language so our program must be broken into some of functions
-// our program consists of 2 parts
+// our program consists of 3 parts
 //	part I  : Generate Prime Implicants
-//	part II : Essential implicants Row dominance and column dominance
+//	part II : Essential implicants , Row dominance and column dominance
 //	part III: Petrick method
 
 -------------------------------------------Part I-------------------------------------

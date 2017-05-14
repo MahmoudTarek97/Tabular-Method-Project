@@ -17,8 +17,8 @@ function printOutput() {
     output = "";
     for (var i = 0; i < solutionsExpressions.length; i++) {
         var solutionParagraph = document.createElement("p");
-        var solutionText = document.createTextNode("Solution " + (i + 1) + ": " + solutionsExpressions[i]);
-        output = output.concat("Solution " + (i + 1) + ": " + solutionsExpressions[i] + "\n");
+        var solutionText = document.createTextNode("Solution " + (i + 1) + ": F = " + solutionsExpressions[i]);
+        output = output.concat("Solution " + (i + 1) + ": F = " + solutionsExpressions[i] + "\n");
         solutionParagraph.appendChild(solutionText);
         jumbotronDiv.append(solutionParagraph);
     }
@@ -54,7 +54,7 @@ function createDownloadButton() {
 }
 
 function printSteps() {
-    
+
     if (!specialcase) {
         generateGroupListsTables();
     }
@@ -62,7 +62,7 @@ function printSteps() {
     if (uncoveredMinTerms != undefined) {
         generateCoverTables();
     }
-        
+
 }
 
 function clearSteps() {
@@ -94,15 +94,15 @@ function generateGroupListsTables() {
     var headerText = document.createTextNode("Grouping Process");
     header.appendChild(headerText);
 
-    for (var i=0; i<groupLists.length; i++) {
+    for (var i = 0; i < groupLists.length; i++) {
         groupListTable = generateGroupListTable(groupLists[i], i);
         divContainer.appendChild(groupListTable);
     }
-    
+
     var groupingDiv = document.getElementById("grouping");
 
-    var primeImplicantsStringArr  = [];
-    for (var i=0; i<primeImplicants.length; i++) {
+    var primeImplicantsStringArr = [];
+    for (var i = 0; i < primeImplicants.length; i++) {
         primeImplicantsStringArr.push(generateImplicantExpression(primeImplicants[i]));
     }
     var paragraph = document.createElement("p");
@@ -122,7 +122,7 @@ function generateGroupListsTables() {
  * returns a div containing the table
  */
 function generateGroupListTable(groupList, index) {
-    
+
 
     var divCol4 = document.createElement("div");
     divCol4.setAttribute("class", "col-xs-6 col-sm-6 col-md-3 col-lg-3");
@@ -138,7 +138,7 @@ function generateGroupListTable(groupList, index) {
     var th = document.createElement("th");
     th.setAttribute("colspan", 2);
     th.setAttribute("class", "success");
-    thText = document.createTextNode("Implicants of size " + Math.pow(2,index));
+    thText = document.createTextNode("Implicants of size " + Math.pow(2, index));
     th.appendChild(thText);
 
     tr1.appendChild(th);
@@ -162,14 +162,14 @@ function generateGroupListTable(groupList, index) {
 function generateGroupListTableBody(groupList) {
     var tbody = document.createElement("tbody");
 
-    for (var i=0; i<groupList.length; i++) {
+    for (var i = 0; i < groupList.length; i++) {
         var group = groupList[i];
 
-        for (var j=0; j<group.members.length; j++) {
+        for (var j = 0; j < group.members.length; j++) {
             imp = group.members[j];
 
             var tr = document.createElement("tr");
-            if (j==0) {
+            if (j == 0) {
                 tr.setAttribute("class", "top-bordered")
             }
 
@@ -218,7 +218,7 @@ function generateCoverTables() {
     divRow.appendChild(generateCoverTable(primeImplicants, minTerms));
     divContainer.appendChild(divRow);
 
-    if (uncoveredMinTerms.length >0) {
+    if (uncoveredMinTerms.length > 0) {
         var h4 = document.createElement("h4");
         var h4Text = document.createTextNode("After Elimination: ");
         h4.appendChild(h4Text);
@@ -249,7 +249,7 @@ function generateCoverTable(implicants, terms) {
     th1.setAttribute("class", "success right-bordered");
     tr1.appendChild(th1);
 
-    for (var i=0; i<terms.length; i++) {
+    for (var i = 0; i < terms.length; i++) {
         var th = document.createElement("th");
         var thText = document.createTextNode(terms[i]);
         th.setAttribute("class", "bottom-bordered");
@@ -257,10 +257,10 @@ function generateCoverTable(implicants, terms) {
         tr1.appendChild(th);
     }
     thead.appendChild(tr1);
-    
+
     var tbody = document.createElement("tbody");
 
-    for (var i=0; i<primeImplicants.length; i++) {
+    for (var i = 0; i < primeImplicants.length; i++) {
         var termsCovered = primeImplicants[i].mintermsCovered;
 
         var tr = document.createElement("tr");
@@ -272,7 +272,7 @@ function generateCoverTable(implicants, terms) {
         th.appendChild(thText);
         tr.appendChild(th);
 
-        for (var j=0; j<terms.length; j++) {
+        for (var j = 0; j < terms.length; j++) {
             var td = document.createElement("td");
             if (termsCovered.includes(terms[j])) {
                 var tdText = document.createTextNode("X");
@@ -326,8 +326,8 @@ function generateImplicantExpression(imp) {
         charArr.push("0");
     }
 
-    for (var i=0; i<numberOfInputs; i++) {
-        if (baseValue & 1<<i) {
+    for (var i = 0; i < numberOfInputs; i++) {
+        if (baseValue & 1 << i) {
             var flippedIndex = numberOfInputs - 1 - i;
             charArr[flippedIndex] = "1";
         }
@@ -351,5 +351,3 @@ function generateImplicantExpression(imp) {
 
     return charArr.join('');
 }
-
-

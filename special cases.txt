@@ -15,6 +15,6 @@
 4- F=Σm(0)
             --> F = A'
 
-5- all dontCare terms exist e.g. F=Σd(0,1,2,3)
+5- No minterms but all dontCare terms exist e.g. F=Σd(0,1,2,3)
             --> F = 0
         or  --> F = 1

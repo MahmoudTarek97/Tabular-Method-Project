@@ -14,8 +14,8 @@ function readInput() {
 
 //prints an error message
 function printError() {
-    alert("Error !");
-    console.log("Error !");
+    alert("Error ! Invalid Input");
+    console.log("Error ! Invalid Input");
 }
 
 

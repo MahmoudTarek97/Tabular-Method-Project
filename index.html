@@ -3,27 +3,30 @@
 
 <head>
     <style>
-        body { 
-            background: url(wallpaper2.jpg) no-repeat center center fixed; 
+        body {
+            background: url(wallpaper2.jpg) no-repeat center center fixed;
             -webkit-background-size: cover;
             -moz-background-size: cover;
             -o-background-size: cover;
             background-size: cover;
         }
+        
         tr.top-bordered {
             border-top: 3px solid #7D7D7D !important;
         }
+        
         tr.bottom-bordered {
             border-bottom: 3px solid #7D7D7D !important;
         }
+        
         th.right-bordered {
             border-right: 3px solid #7D7D7D !important;
         }
-        .jumbotron{
+        
+        .jumbotron {
             color: #FFFFFF;
-            background-color:none !important;
+            background-color: none !important;
         }
-
     </style>
     <meta charset="utf-8">
     <title>Tabular Method Project</title>
@@ -41,14 +44,14 @@
 
                     <div class="row">
                         <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-                            <label for="Input">Σ<small>m</small></label>
+                            <label for="Input"><font size=4>F = Σ<small>m</small></font></label>
                         </div>
                         <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
                             <input type="text" class="form-control" id="Minterms" placeholder="Enter numbers of minterms like: 2,5,..">
                         </div>
 
                         <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-                            <label for="Input">Σ<small>d</small></label>
+                            <label for="Input"><font size=4>+ Σ<small>d</small></font></label>
                         </div>
                         <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
                             <input type="text" class="form-control" id="DontCares" placeholder="Enter numbers of don't care minterms">
@@ -63,7 +66,7 @@
                         <input type="file" class="btn btn-primary btn-lg" onchange='readText(this)' />
                     </div>
 
-                    
+
 
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right">
                         <input id="clickSimplify" type="button" class="btn btn-primary btn-lg" value="Simplify" onClick="main();" />
@@ -93,7 +96,7 @@
         <div id=output>
             <!-- Answer goes here -->
         </div>
-        
+
         <div id="grouping">
             <!-- Grouping steps go here -->
         </div>
@@ -102,22 +105,22 @@
             <!-- Implicants/Minterms tables go here -->
         </div>
 
-            <div class="panel panel-default">
-                <div class="panel-footer">
-                    <p>&copy CSED20 | by <a>Mahmoud Tarek</a> & <a>Khaled Barie</a></p>
-                </div>
+        <div class="panel panel-default">
+            <div class="panel-footer">
+                <p>&copy CSED20 | by <a>Mahmoud Tarek</a> & <a>Khaled Barie</a></p>
+            </div>
 
-        <script src="Output.js"></script>
-        <script src="Input.js"></script>
-        <script src="Implicants.js"></script>
-        <script src="Grouping.js"></script>
-        <script src="Elimination.js"></script>
-        <script src="Branching.js"></script>
-        <script src="FileIO.js"></script>
-        <script src="MainFunction.js"></script>
+            <script src="Output.js"></script>
+            <script src="Input.js"></script>
+            <script src="Implicants.js"></script>
+            <script src="Grouping.js"></script>
+            <script src="Elimination.js"></script>
+            <script src="Branching.js"></script>
+            <script src="FileIO.js"></script>
+            <script src="MainFunction.js"></script>
 
 
-    </div>
+        </div>
 </body>
 
 </html>
