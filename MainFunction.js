@@ -33,16 +33,23 @@ function main() {
 
     //special cases
     specialcase = false;
-    if (minTerms.length == 0) {
-        solutionsExpressions = ["0"];
+    if (minTerms.length == 1 && dontCares.length == 0 && minTerms[0] == 0) {
+        solutionsExpressions = ["A'"];
         specialcase = true;
-        printOutput();
-        return;
-    }
-    if (minTerms.length == Math.pow(2, numberOfInputs)) {
+    } else if (minTerms.length == 0) {
+        solutionsExpressions = ["0"];
+        if (dontCares.length != 0 && dontCares.length == Math.pow(2, numberOfInputs)) {
+            solutionsExpressions.push("1");
+        }
+        specialcase = true;
+    } else if ((minTerms.length + dontCares.length) == Math.pow(2, numberOfInputs)) {
         solutionsExpressions = ["1"];
         specialcase = true;
+    }
+    if (specialcase) {
         printOutput();
+        printSteps();
+        createDownloadButton();
         return;
     }
 
